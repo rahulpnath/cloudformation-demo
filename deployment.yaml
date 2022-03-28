@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: ---
+Metadata: 
+
+Parameters: 
+ Environment:
+   Description: Environment specific name
+   Type: String
+   
+Mappings: 
+
+Conditions: 
+
+Resources: 
+ sqsQueue:
+   Type: AWS::SQS::Queue
+   Properties:
+     QueueName: 
+     DelaySeconds: 
+     MaximumMessageSize: 
+     MessageRetentionPeriod: 
+     ReceiveMessageWaitTimeSeconds: 
+     RedrivePolicy: 
+     VisibilityTimeout: 
+     FifoQueue:  true | false
+     Tags:
+       - Key: keyname
+         Value: value
+
+Outputs:
