@@ -33,3 +33,9 @@ jobs:
         name: lambda
         path: ./artifact/lambda.zip
       
+    - name: Upload to S3
+      run: aws s3 cp ./artifact/lambda.zip s3://youtube-packages-dev
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: 'ap-southeast-2'
