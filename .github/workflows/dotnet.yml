@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Publish
-      run: dotnet publish --no-self-contained --runtime linux-x64 --configuration Release --output /artifact/publish
+      run: dotnet publish --no-self-contained --runtime linux-x64 --configuration Release --output /artifact/publish .\src\cloudformation-demo\cloudformation-demo.csproj
       
     - name: action-zip
       # You may pin to the exact commit or the version.
