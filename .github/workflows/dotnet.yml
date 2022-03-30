@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Publish
-      run: dotnet publish --no-self-contained --runtime linux-x64 --configuration Release --output /artifact/publish ./src/cloudformation-demo/cloudformation-demo.csproj
+      run: dotnet publish --no-self-contained --runtime linux-x64 --configuration Release --output ./artifact/publish ./src/cloudformation-demo/cloudformation-demo.csproj
       
     - name: action-zip
       # You may pin to the exact commit or the version.
@@ -27,5 +27,5 @@ jobs:
       uses: montudor/action-zip@v1.0.0
       with:
         # See montudor/action-zip README.md for more info
-        args: zip -qq -r artifact/lambda.zip /artifact/publish
+        args: zip -qq -r artifact/lambda.zip ./artifact/publish
       
