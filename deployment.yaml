@@ -19,7 +19,7 @@ Resources:
       Handler: cloudformation-demo::cloudformation_demo.Function::FunctionHandler
       MemorySize: 128
       Role: role-arn
-      Runtime: dotnetcore6.0
+      Runtime: dotnet6
       Timeout: 60
       Environment:
         Variables:
