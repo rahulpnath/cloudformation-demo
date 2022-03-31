@@ -46,7 +46,7 @@ Resources:
                   - sqs:DeleteMessage
                   - sqs:GetQueueAttributes
                   - sqs:ChangeMessageVisibility
-                Resource: !GetAtt MyQueue.Arn
+                Resource: !GetAtt sqsQueue.Arn
 
   LambdaFunctionEventSourceMapping:
     Type: AWS::Lambda::EventSourceMapping
