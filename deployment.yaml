@@ -15,7 +15,6 @@ Resources:
   lambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      AssumeRolePolicyDocument:
       Policies:
         - PolicyName: "youtube-demo-lambda-policy"
           PolicyDocument:
