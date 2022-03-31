@@ -64,7 +64,7 @@ Resources:
       MemorySize: 128
       Role: !GetAtt lambdaExecutionRole.Arn
       Runtime: dotnet6
-      Timeout: 60
+      Timeout: 30
       Environment:
         Variables:
           key1: value1 # A map of key-value pairs that the Lambda function can access
