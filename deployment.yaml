@@ -1,30 +1,44 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: ---
-Metadata: 
+Metadata:
 
-Parameters: 
- Environment:
-   Description: Environment specific name
-   Type: String
-   
-Mappings: 
+Parameters:
+  Environment:
+    Description: Environment specific name
+    Type: String
 
-Conditions: 
+Mappings:
 
-Resources: 
- sqsQueue:
-   Type: AWS::SQS::Queue
-   Properties:
-     QueueName: 
-     DelaySeconds: 
-     MaximumMessageSize: 
-     MessageRetentionPeriod: 
-     ReceiveMessageWaitTimeSeconds: 
-     RedrivePolicy: 
-     VisibilityTimeout: 
-     FifoQueue:  true | false
-     Tags:
-       - Key: keyname
-         Value: value
+Conditions:
+
+Resources:
+  sqsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub youtube-demo-cloudformation-${Environment}
+      DelaySeconds:
+      MaximumMessageSize:
+      MessageRetentionPeriod:
+      ReceiveMessageWaitTimeSeconds:
+      RedrivePolicy:
+      VisibilityTimeout:
+      FifoQueue: true | false
+
+  lambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description:
+      FunctionName: !Sub youtube-demo-cloudformation-${Environment}
+      Handler: cloudformation-demo::cloudformation_demo.Function::FunctionHandler
+      MemorySize: 128
+      Role: role-arn
+      Runtime: dotnetcore6.0
+      Timeout: 60
+      Environment:
+        Variables:
+          key1: value1 # A map of key-value pairs that the Lambda function can access
+      Code:
+        S3Bucket: youtube-packages-dev
+        S3Key: lambda.zip
 
 Outputs:
