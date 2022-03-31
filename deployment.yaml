@@ -7,27 +7,15 @@ Parameters:
     Description: Environment specific name
     Type: String
 
-Mappings:
-
-Conditions:
-
 Resources:
   sqsQueue:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Sub youtube-demo-cloudformation-${Environment}
-      DelaySeconds:
-      MaximumMessageSize:
-      MessageRetentionPeriod:
-      ReceiveMessageWaitTimeSeconds:
-      RedrivePolicy:
-      VisibilityTimeout:
-      FifoQueue: true | false
 
   lambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
-      Description:
       FunctionName: !Sub youtube-demo-cloudformation-${Environment}
       Handler: cloudformation-demo::cloudformation_demo.Function::FunctionHandler
       MemorySize: 128
@@ -40,5 +28,3 @@ Resources:
       Code:
         S3Bucket: youtube-packages-dev
         S3Key: lambda.zip
-
-Outputs:
