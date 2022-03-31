@@ -28,10 +28,15 @@ jobs:
       run: zip -qq -r ../lambda.zip .
       working-directory: artifact/publish
     
+    - name: Copy Cloudformation Template
+      run: |
+        cp ./deployment.yaml ./artifacts/deployment.yaml
+        cp ./parameters.json ./artifacts/parameters.json
+    
     - uses: actions/upload-artifact@v3
       with:
         name: lambda
-        path: ./artifact/lambda.zip
+        path: ./artifact
     
     - name: Configure AWS credentials
       id: creds
@@ -43,3 +48,15 @@ jobs:
       
     - name: Upload to S3
       run: aws s3 cp ./artifact/lambda.zip s3://youtube-packages-dev
+  
+  test:
+  
+    runs-on: ubuntu-latest
+    environment: Test
+    
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: lambda
+    
+    
