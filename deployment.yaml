@@ -12,13 +12,37 @@ Resources:
     Properties:
       QueueName: !Sub youtube-demo-cloudformation-${Environment}
 
+  lambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+      Policies:
+        - PolicyName: "youtube-demo-lambda-policy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Resource: "*"
+
+  LambdaFunctionEventSourceMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn: !GetAtt sqsQueue.Arn
+      FunctionName: !GetAtt lambdaFunction.Arn
+
   lambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: !Sub youtube-demo-cloudformation-${Environment}
       Handler: cloudformation-demo::cloudformation_demo.Function::FunctionHandler
       MemorySize: 128
-      Role: role-arn
+      Role: !GetAtt lambdaExecutionRole.Arn
       Runtime: dotnet6
       Timeout: 60
       Environment:
