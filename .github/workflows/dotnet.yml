@@ -30,8 +30,8 @@ jobs:
     
     - name: Copy Cloudformation Template
       run: |
-        cp ./deployment.yaml ./artifacts/deployment.yaml
-        cp ./parameters.json ./artifacts/parameters.json
+        cp ./deployment.yaml ./artifact/deployment.yaml
+        cp ./parameters.json ./artifact/parameters.json
     
     - uses: actions/upload-artifact@v3
       with:
@@ -53,6 +53,7 @@ jobs:
   
     runs-on: ubuntu-latest
     environment: Test
+    needs: build
     
     steps:
     - uses: actions/download-artifact@v3
